@@ -62,9 +62,15 @@ In program 5, we save the data model to a model.joblib file and use it to make p
 
 Sample code from Program 5
 ```Python
+
+# Input the user to guess an esports player's salary.
 print("Guess how much a league of legends player earns based on their total career stats")
 
+# Create an object that combines the data attributes/user inputs.
 esports_prediction = [matches_guess, kills_guess, deaths_guess, assists_guess, gold_guess]
+
+# Load the model that we trained and saved to a file
+model = joblib.load('model.joblib')
 
 # Feed the model the instance andm ake a prediction for the target value
 predicted_value = model.predict(input_new)
