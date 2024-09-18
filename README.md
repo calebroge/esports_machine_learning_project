@@ -49,7 +49,7 @@ estimators = {
     'SVR': SVR(),
     'KNeighborsRegressor': KNeighborsRegressor(),
     'GradientBoostingRegressor': GradientBoostingRegressor()
-}w
+}
 ```
 
 Lines 30-31 in Program 5
