@@ -13,8 +13,8 @@ esports = Esports(95, 273, 506, 1300674, 1257615)
 ```
 
 In programs 3-5, we outputted our data on Python and tested different machine learning models to analyze the data
-to see which model was the most accurate in predicting data on an esports player's stats and their compensation. The major difference between each of the program files is what data models were using and measuring on our datasets. In program 3, we tested linear_regression
-elasticnet, lasso, and ridge on our data model. Where in program 4, we tested the svr, kneighborsregressor, and gradientboostingregressor data models
+to see which model was the most accurate in predicting data on an esports player's stats and their compensation. The major difference between programs 3 & 4 is what data models were using and measuring on our datasets. In program 3, we tested linear_regression
+elasticnet, lasso, and ridge on our data model. 
 
 Lines 26-29 in Program 3
 ```Python
@@ -34,6 +34,8 @@ for estimator_name, estimator_object in estimators.items():
     print(f"{estimator_name:>16}: mean of r2 scores = {abs(scores.mean()):.3f}")
 ```
 
+ Whereas in program 4, we tested the svr, kneighborsregressor, and gradientboostingregressor data models to see which data model was the best to use for our dataset.
+
 Lines 26-27 in Program 4
 
 ```Python
@@ -49,17 +51,25 @@ estimators = {
     'SVR': SVR(),
     'KNeighborsRegressor': KNeighborsRegressor(),
     'GradientBoostingRegressor': GradientBoostingRegressor()
+
+for estimator_name, estimator_object in estimators.items():
+    kfold = KFold(n_splits=10, random_state=11, shuffle=True)
+    scores = cross_val_score(estimator=estimator_object, X=X, y=y, cv=kfold, scoring='r2')
+    print(f"{estimator_name:>16}: mean of r2 scores = {abs(scores.mean()):.3f}")
 }
 ```
+In program 5, we save the data model to a model.joblib file and use it to make predictions from our dataset using machine learning.
 
-Lines 30-31 in Program 5
+Sample code from Program 5
 ```Python
+print("Guess how much a league of legends player earns based on their total career stats")
 
-# Train the final model on the entire dataset
-final_model = GradientBoostingRegressor()
-final_model.fit(X=X, y=y)   # X, y make up the entire dataset
+esports_prediction = [matches_guess, kills_guess, deaths_guess, assists_guess, gold_guess]
 
-# Save the model to a joblib file
-import joblib
-joblib.dump(final_model, 'model.joblib')
+# Feed the model the instance andm ake a prediction for the target value
+predicted_value = model.predict(input_new)
+
+# Display the predicted value
+print(f"The predicted value is: ${predicted_value[0]:,.2f}")
+
 ```
